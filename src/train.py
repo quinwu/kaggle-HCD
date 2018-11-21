@@ -8,8 +8,8 @@ def train_model(model, device, dataloaders, datasets_sizes,
                 criterion, optimizer, scheduler, num_epoches=10):
     since = time.time()
 
-    best_model_wts = copy.deepcopy(model.state_dict())
-    best_acc = 0.0
+    # best_model_wts = copy.deepcopy(model.state_dict())
+    # best_acc = 0.0
 
     for epoch in range(num_epoches):
         epoch_acc = {}
@@ -60,9 +60,9 @@ def train_model(model, device, dataloaders, datasets_sizes,
             epoch_acc[phase] = (running_corrects.double() / datasets_sizes[phase]).item()
             tq.close()
 
-            if phase == 'val' and epoch_acc['val'] > best_acc:
-                best_acc = epoch_acc['val']
-                best_model_wts = copy.deepcopy(model.state_dict())
+            # if phase == 'val' and epoch_acc['val'] > best_acc:
+            #     best_acc = epoch_acc['val']
+            #     best_model_wts = copy.deepcopy(model.state_dict())
 
         print ('train  Acc: {:.4f}, val Acc: {:.4f}'.format(epoch_acc['train'],epoch_acc['val']))
 
@@ -70,8 +70,8 @@ def train_model(model, device, dataloaders, datasets_sizes,
     print('Training complete in {:.0f}m {:.0f}s'.format(
         time_elapsed // 60, time_elapsed % 60
     ))
-    print('Best val ACC :{:4f}'.format(best_acc))
-
-    model.load_state_dict(best_model_wts)
+    # print('Best val ACC :{:4f}'.format(best_acc))
+    #
+    # model.load_state_dict(best_model_wts)
 
     return model
