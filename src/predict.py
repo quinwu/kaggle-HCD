@@ -13,8 +13,6 @@ def load_test_data(root):
     csv_path = os.path.join(root,'sample_submission.csv')
     df = pd.read_csv(csv_path)
 
-    print ('len(df) = {}'.format(len(df)))
-
     dataset = HCDDataset(
         root=root,
         in_df=df,
