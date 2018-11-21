@@ -5,7 +5,7 @@ import pandas as pd
 
 from torch.utils.data import DataLoader
 from src.data.dataset import HCDDataset
-from src.transform.transform import data_transforms
+from src.transform.transform import data_transforms1
 
 from tqdm import tqdm
 
@@ -16,7 +16,7 @@ def load_test_data(root):
     dataset = HCDDataset(
         root=root,
         in_df=df,
-        transform=data_transforms['test'],
+        transform=data_transforms1['test'],
         mode='test'
     )
 
