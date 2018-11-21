@@ -4,7 +4,8 @@ import torch
 import numpy as np
 from tqdm import tqdm
 
-def train_model(model, device, dataloaders, datasets_sizes, criterion, optimizer, scheduler, num_epoches=10):
+def train_model(model, device, dataloaders, datasets_sizes,
+                criterion, optimizer, scheduler, num_epoches=10):
     since = time.time()
 
     best_model_wts = copy.deepcopy(model.state_dict())

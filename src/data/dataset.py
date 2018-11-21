@@ -21,7 +21,7 @@ class HCDDataset(Dataset):
         if self.mode == 'train':
             train_path = os.path.join(self.root,'train')
             image_path = os.path.join(train_path,image_id) + '.tif'
-        else:
+        if self.mode == 'test':
             test_path = os.path.join(self.root,'test')
             image_path = os.path.join(test_path,image_id) + '.tif'
 

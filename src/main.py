@@ -24,37 +24,28 @@ train_csv_path = os.path.join(root_path, 'train_labels.csv')
 train_data_path = os.path.join(root_path, 'train')
 test_data_path = os.path.join(root_path, 'test')
 
-def split_df(df):
-    images_ids = list(df['id'])
-    train_ids, val_ids = train_test_split(
-        images_ids,
+def load_data():
+    df = pd.read_csv(train_csv_path)
+
+    data_df = {}
+    data_df['train'], data_df['val'] = train_test_split(
+        df,
         test_size=0.1,
         random_state=42,
         shuffle=True,
     )
-    data_df = {}
-    data_df['train'] = pd.merge(df,train_ids)
-    data_df['val'] = pd.merge(df,val_ids)
-
-    return data_df
-
-
-def load_data(csv_file):
-    df = pd.read_csv(csv_file)
-    data_df = split_df(df)
 
     datasets = {
-        x : HCDDataset(
+        x: HCDDataset(
             root=root_path,
             in_df=data_df[x],
             transform=data_transforms[x],
-            model=x
         )
         for x in ['train', 'val']
     }
 
     dataloaders = {
-        x:DataLoader(
+        x: DataLoader(
             dataset=datasets[x],
             batch_size=128,
             shuffle=True,
@@ -63,13 +54,13 @@ def load_data(csv_file):
         for x in ['train', 'val']
     }
 
-    datasets_sizes = {x : len(datasets[x]) for x in ['train', 'val']}
+    datasets_sizes = {x: len(datasets[x]) for x in ['train', 'val']}
 
     return dataloaders, datasets_sizes
 
 
 def pipeline():
-    dataloaders, datasets_sizes = load_data(train_csv_path)
+    dataloaders, datasets_sizes = load_data()
 
     model_ft = Resnet50(2)
 
@@ -78,7 +69,9 @@ def pipeline():
     optimizer_ft = optim.SGD(
         filter(lambda p: p.requires_grad, model_ft.parameters()),
         lr=0.001,
-        momentum=0.9)
+        momentum=0.9
+    )
+
     exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=7, gamma=0.1)
 
     model_ft = train_model(
