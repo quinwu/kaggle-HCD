@@ -5,6 +5,8 @@ import pandas as pd
 from PIL import Image
 from torch.utils.data import Dataset
 
+from src.transform.transform import ImgAugTransform
+
 
 class HCDDataset(Dataset):
     def __init__(self,root,in_df,transform=None,mode='train'):
@@ -25,8 +27,10 @@ class HCDDataset(Dataset):
             test_path = os.path.join(self.root,'test')
             image_path = os.path.join(test_path,image_id) + '.tif'
 
+        # image = np.asarray(Image.open(image_path))
         image = Image.open(image_path)
         label = np.array(self.labels[item])
+
 
         if self.transform is not None:
             image = self.transform(image)

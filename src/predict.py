@@ -5,7 +5,7 @@ import pandas as pd
 
 from torch.utils.data import DataLoader
 from src.data.dataset import HCDDataset
-from src.transform.transform import data_transforms1
+from src.transform.transform import data_transforms2,data_transforms1
 
 from tqdm import tqdm
 

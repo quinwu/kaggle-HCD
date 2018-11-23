@@ -14,7 +14,7 @@ from sklearn.model_selection import train_test_split
 
 from src.transform.transform import data_transforms
 from src.data.dataset import HCDDataset
-from src.model.HCD_resnet50 import Resnet50
+from src.model.HCD_resnet import Resnet50
 from src.train import train_model
 
 
