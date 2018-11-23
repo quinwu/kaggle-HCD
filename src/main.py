@@ -12,7 +12,7 @@ from torch.optim import lr_scheduler
 from torch.utils.data import DataLoader
 from sklearn.model_selection import train_test_split
 
-from src.transform.transform import data_transforms
+from src.transform.transform import data_transforms1
 from src.data.dataset import HCDDataset
 from src.model.HCD_resnet import Resnet50
 from src.train import train_model
@@ -39,7 +39,7 @@ def load_data():
         x: HCDDataset(
             root=root_path,
             in_df=data_df[x],
-            transform=data_transforms[x],
+            transform=data_transforms1[x],
         )
         for x in ['train', 'val']
     }

@@ -1,13 +1,10 @@
 import os
 import torch
-import numpy as np
 import pandas as pd
-
+from tqdm import tqdm
 from torch.utils.data import DataLoader
 from src.data.dataset import HCDDataset
 from src.transform.transform import data_transforms2,data_transforms1
-
-from tqdm import tqdm
 
 def load_test_data(root):
     csv_path = os.path.join(root,'sample_submission.csv')
