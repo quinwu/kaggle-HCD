@@ -4,6 +4,7 @@ import pandas as pd
 from tqdm import tqdm
 from torch.utils.data import DataLoader
 from src.data.dataset import HCDDataset
+import torch.nn.functional as F
 from src.transform.transform import data_transforms2,data_transforms1
 
 def load_test_data(root):
@@ -42,9 +43,9 @@ def predict(model, device, dataloader, path):
         inputs, ids_batch = data
         inputs = inputs.to(device)
         outputs = model(inputs)
-        _, preds_batch = torch.max(outputs, 1)
 
-        preds_batch = preds_batch.tolist()
+        outputs = F.softmax(outputs,1)
+        preds_batch = outputs[:,1].tolist()
         ids_batch = list(ids_batch)
 
         ids += ids_batch
@@ -53,7 +54,6 @@ def predict(model, device, dataloader, path):
         tq.update(batch_size)
 
     tq.close()
-
     df = pd.DataFrame({'id':ids, 'label':preds})
     df.to_csv(path,index=False)
     print (df.head())

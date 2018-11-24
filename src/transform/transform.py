@@ -21,9 +21,9 @@ data_transforms1 = {
 
 data_transforms2 = {
     'train':transforms.Compose([
+        transforms.CenterCrop(48),
         ImgAugTransform(),
-        lambda x : Image.fromarray(x),
-        transforms.CenterCrop(32),
+        lambda x: Image.fromarray(x),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ]),
