@@ -4,6 +4,7 @@ from src.transform.augment import ImgAugTransform
 
 data_transforms1 = {
     'train':transforms.Compose([
+        transforms.CenterCrop(32),
         ImgAugTransform(),
         lambda x : Image.fromarray(x),
         transforms.ToTensor(),
@@ -17,11 +18,13 @@ data_transforms1 = {
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ])
+
+
 }
 
 data_transforms2 = {
     'train':transforms.Compose([
-        transforms.CenterCrop(48),
+        transforms.CenterCrop(64),
         ImgAugTransform(),
         lambda x: Image.fromarray(x),
         transforms.ToTensor(),
@@ -41,7 +44,6 @@ data_transforms3 = {
     'train':transforms.Compose([
         ImgAugTransform(),
         lambda x : Image.fromarray(x),
-        transforms.CenterCrop(64),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ]),
