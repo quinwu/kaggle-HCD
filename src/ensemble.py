@@ -26,6 +26,6 @@ def average_ensemble(root,avg_path):
 def max_confidences():
     pass
 
-# if __name__ == '__main__':
-#     root_path = '/home/kwu/Project/kaggle/HCD/ensemble'
-#     average_ensemble(root_path,'/home/kwu/Project/kaggle/HCD/result/avg_ensemble.csv')
+if __name__ == '__main__':
+    root_path = '/home/kwu/Project/kaggle/HCD/ensemble'
+    average_ensemble(root_path,'/home/kwu/Project/kaggle/HCD/result/avg_ensemble.csv')
