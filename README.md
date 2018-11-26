@@ -41,9 +41,9 @@ MobileNet-v2
 - 2018-11-25-mobilenet-v2.pt
 - 2018-11-25-mobilenet-v2.csv
 
-32*32 epoch = 4
-
-96*96 epoch = 8
+> 32*32 epoch = 4
+>
+> 96*96 epoch = 8
 
 - 0.9683
 - 2018-11-26-mobilenet-v2.pt
