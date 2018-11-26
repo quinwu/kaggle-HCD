@@ -3,9 +3,9 @@
 
 ResNet18
 
-32*32 epoch = 4
-
-96*96 epoch = 5
+> 32*32 epoch = 4
+>
+> 96*96 epoch = 5
 
 - 0.9634
 - 2018-11-25-Resnet18.pt
@@ -13,9 +13,9 @@ ResNet18
 
 ResNet34
 
-32*32 epoch = 4
-
-96*96 epoch = 7
+> 32*32 epoch = 4
+>
+> 96*96 epoch = 7
 
 - 0.9623
 - 2018-11-25-Resnet34.pt
@@ -23,9 +23,9 @@ ResNet34
 
 ResNet50
 
-32*32 epoch = 4
-
-96*96 epoch = 5
+> 32*32 epoch = 4
+>
+> 96*96 epoch = 5
 
 - 0.9678
 - 2018-11-25-Resnet50.csv
@@ -33,9 +33,9 @@ ResNet50
 
 MobileNet-v2
 
-32*32 epoch = 4
-
-96*96 epoch = 6
+> 32*32 epoch = 4
+>
+> 96*96 epoch = 6
 
 - 0.9654
 - 2018-11-25-mobilenet-v2.pt
@@ -51,9 +51,9 @@ MobileNet-v2
 
 DenseNet
 
-DenseNet121
+- DenseNet121
 
-- todo
+    - todo
 
 
 
