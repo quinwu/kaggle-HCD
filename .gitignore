@@ -1,6 +1,6 @@
 .idea/*
 .ipynb_checkpoints/*
-model*
+model/*.pt
 notebook*
 result*
 *.ipynb
