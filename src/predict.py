@@ -6,6 +6,7 @@ from torch.utils.data import DataLoader
 from src.data.dataset import HCDDataset
 import torch.nn.functional as F
 from src.transform.transform import data_transforms2,data_transforms1
+from torchvision import transforms
 
 def load_test_data(root):
     csv_path = os.path.join(root,'sample_submission.csv')
@@ -14,7 +15,7 @@ def load_test_data(root):
     dataset = HCDDataset(
         root=root,
         in_df=df,
-        transform=data_transforms1['test'],
+        transform=transforms.ToTensor(),
         mode='test'
     )
 

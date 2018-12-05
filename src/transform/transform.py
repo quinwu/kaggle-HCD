@@ -1,6 +1,6 @@
 import PIL.Image as Image
 from torchvision import transforms
-from src.transform.augment import ImgAugTransform
+from .augment import ImgAugTransform
 
 data_transforms1 = {
     'train':transforms.Compose([
@@ -18,7 +18,6 @@ data_transforms1 = {
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ])
-
 
 }
 
