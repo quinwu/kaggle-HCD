@@ -41,6 +41,10 @@ def PILsToTensor(imgs):
     # tensors = [F.to_tensor(img) for img in imgs]
     return torch.stack(tensors)
 
+class NoneAug():
+    def __call__(self, imgs):
+        return imgs
+
 class Hflip():
     def __call__(self,imgs):
         return [F.hflip(img=img) for img in imgs]
