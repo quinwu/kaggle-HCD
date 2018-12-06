@@ -28,7 +28,7 @@ class ClassPredictor():
         for aug in self.augs:
             self.preds.append(self._predict_single(imgs,aug))
 
-        print (self.preds)
+        return self.preds
 
     def _predict_single(self, imgs, aug):
         aug_imgs = aug(imgs)
@@ -45,9 +45,6 @@ class ClassPredictor():
         return preds_batch
 
     def __call__(self, inputs):
-        self.predict(inputs)
+        return self.predict(inputs)
 
-# if __name__ == '__main__':
-#     model = 'test'
-#     test = ClassPredictor(model)
 
