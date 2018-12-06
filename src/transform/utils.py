@@ -76,6 +76,7 @@ class Adjustcontrast():
         self.contrast_factor = contrast_factor
     def __call__(self, imgs):
         return [F.adjust_contrast(img=img, contrast_factor=self.contrast_factor) for img in imgs]
+
 class Adjustsaturation():
     def __init__(self, saturation_factor):
         self.saturation_factor = saturation_factor
