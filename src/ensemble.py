@@ -28,4 +28,4 @@ def max_confidences():
 
 if __name__ == '__main__':
     root_path = '/home/kwu/Project/kaggle/HCD/ensemble'
-    average_ensemble(root_path,'/home/kwu/Project/kaggle/HCD/result/avg_ensemble.csv')
+    average_ensemble(root_path,'/home/kwu/Project/kaggle/HCD/result/2018-12-06-avg_ensemble.csv')
