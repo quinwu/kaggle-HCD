@@ -7,10 +7,12 @@ import torch.nn.functional as F
 
 
 tta_aug = [
+    NoneAug(),
     Hflip(),
     Vflip(),
     Rotate(90),
     Rotate(180),
+    Rotate(270),
 ]
 
 class ClassPredictor():
@@ -19,16 +21,16 @@ class ClassPredictor():
         self.model = model
         self.augs = augs
         self.device = device
-        self.preds = []
 
     def predict(self,inputs):
-
+        self.preds = []
         imgs = TensorToPILs(inputs)
 
         for aug in self.augs:
             self.preds.append(self._predict_single(imgs,aug))
+        self.preds = np.mean(np.array(self.preds),axis=0)
 
-        return self.preds
+        return self.preds.tolist()
 
     def _predict_single(self, imgs, aug):
         aug_imgs = aug(imgs)
@@ -38,9 +40,6 @@ class ClassPredictor():
 
         outputs = F.softmax(outputs,1)
         preds_batch = outputs[:,1].tolist()
-
-        print (type(preds_batch))
-        print (len(preds_batch))
 
         return preds_batch
 
