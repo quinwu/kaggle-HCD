@@ -17,6 +17,10 @@ ResNet50
 
 - `0.9678`
 
+ResNet50-tta
+
+- `0.9711`
+
 MobileNet-v2
 
 - `0.9683`
@@ -28,6 +32,9 @@ MobileNet-v2-tta
 DenseNet121
 
 - `0.9663`
+
+DenseNet121-tta
+- `0.9684`
 
 
 
