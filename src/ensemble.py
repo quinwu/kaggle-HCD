@@ -48,7 +48,7 @@ def voting_ensemble(root, ensemble_path):
 
     preds = []
     for i in range(len(p_voting)):
-        if(p_voting[i] > f_voting[i]):
+        if(p_voting[i] >= f_voting[i]):
             preds.append(max_pred[i])
         else:
             preds.append(min_pred[i])
@@ -56,8 +56,30 @@ def voting_ensemble(root, ensemble_path):
     preds_df = pd.DataFrame({'id':sample_submission.index.values, 'label':preds})
     preds_df.to_csv(ensemble_path, index=False)
 
+
+def soft_voting(root, ensemble_path):
+    files = os.listdir(root)
+    submissions = []
+    sample_submission = pd.read_csv(sample_path).set_index('id')
+
+    for fn in files:
+        sub = pd.read_csv(os.path.join(root, fn)).set_index('id')
+        labels = []
+        for i in sample_submission.index.values:
+            labels.append(sub.loc[i]['label'])
+        sub = pd.DataFrame({'id': sample_submission.index.values, 'label': labels})
+        submissions.append(sub.label.values)
+
+    submissions = np.asarray(submissions)
+    preds = np.max(submissions, axis=0)
+
+    preds_df = pd.DataFrame({'id':sample_submission.index.values, 'label':preds})
+    preds_df.to_csv(ensemble_path, index=False)
+
+
 if __name__ == '__main__':
-    ensemble_path = '/home/kwu/Project/kaggle/HCD/result/2019-01-04-voting_ensemble.csv'
+    ensemble_path = '/home/kwu/Project/kaggle/HCD/result/2019-01-04-soft_voting-1.csv'
     root_path = '/home/kwu/Project/kaggle/HCD/ensemble'
     # average_ensemble(root_path,'/home/kwu/Project/kaggle/HCD/result/2018-12-11-avg_ensemble-1.csv')
-    voting_ensemble(root_path,ensemble_path)
+    # voting_ensemble(root_path,ensemble_path)
+    soft_voting(root_path, ensemble_path)
