@@ -26,7 +26,7 @@ def average_ensemble(root,avg_path):
 def max_confidences():
     pass
 
-def voting_ensemble(root, ensemble_path):
+def hard_voting_ensemble(root, ensemble_path):
 
     files = os.listdir(root)
     submissions = []
@@ -57,7 +57,7 @@ def voting_ensemble(root, ensemble_path):
     preds_df.to_csv(ensemble_path, index=False)
 
 
-def soft_voting(root, ensemble_path):
+def max_ensemble(root, ensemble_path):
     files = os.listdir(root)
     submissions = []
     sample_submission = pd.read_csv(sample_path).set_index('id')
@@ -81,5 +81,5 @@ if __name__ == '__main__':
     ensemble_path = '/home/kwu/Project/kaggle/HCD/result/2019-01-04-soft_voting-1.csv'
     root_path = '/home/kwu/Project/kaggle/HCD/ensemble'
     # average_ensemble(root_path,'/home/kwu/Project/kaggle/HCD/result/2018-12-11-avg_ensemble-1.csv')
-    # voting_ensemble(root_path,ensemble_path)
-    soft_voting(root_path, ensemble_path)
+    # hard_voting_ensemble(root_path,ensemble_path)
+    max_ensemble(root_path, ensemble_path)
