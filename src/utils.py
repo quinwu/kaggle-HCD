@@ -6,7 +6,7 @@ from .data.dataset import *
 
 root_path = '/home/kwu/data/kaggle/HCD'
 
-BATCH_SIZE = 128
+BATCH_SIZE = 512
 
 def load_data(df,data_transform):
 
@@ -41,21 +41,31 @@ def load_data(df,data_transform):
 
     return dataloaders, datasets_sizes
 
-def load_stack_data(df,data_transform):
 
-    train_df, stack_df = train_test_split(df,
-                                          test_size=0.3,
-                                          random_state=42,
-                                          shuffle=True)
+def load_stack_data(data_transform):
 
-    stackDataset = HCDDataset(
+    # train_df, stack_df = train_test_split(df,
+    #                                       test_size=0.35,
+    #                                       random_state=42,
+    #                                       shuffle=True)
+    #
+    # train_df.to_csv('/home/kwu/Project/kaggle/HCD/stack/train.csv', index=False)
+    # stack_df.to_csv('/home/kwu/Project/kaggle/HCD/stack/stack.csv', index=False)
+
+    train_csv_path = '/home/kwu/Project/kaggle/HCD/stack/train.csv'
+    stack_csv_path = '/home/kwu/Project/kaggle/HCD/stack/stack.csv'
+
+    train_df = pd.read_csv(train_csv_path)
+    stack_df = pd.read_csv(stack_csv_path)
+
+    stackdataset = HCDDataset(
         root=root_path,
         in_df=stack_df,
         transform=data_transform['train'],
     )
 
-    stackDataloader = DataLoader(
-        dataset=stackDataset,
+    stackdataloader = DataLoader(
+        dataset=stackdataset,
         batch_size=BATCH_SIZE,
         shuffle=True,
         num_workers=4
@@ -88,4 +98,4 @@ def load_stack_data(df,data_transform):
         for x in ['train', 'val']
     }
 
-    return dataloaders, stackDataloader
+    return dataloaders,stackdataloader
