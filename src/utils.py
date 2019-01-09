@@ -5,8 +5,10 @@ from sklearn.model_selection import train_test_split
 from .data.dataset import *
 
 root_path = '/home/kwu/data/kaggle/HCD'
+train_data_path = '/home/kwu/data/kaggle/HCD/train'
+test_data_path = '/home/kwu/data/kaggle/HCD/test'
 
-BATCH_SIZE = 512
+BATCH_SIZE = 256
 
 def load_data(df,data_transform):
 
@@ -20,7 +22,7 @@ def load_data(df,data_transform):
 
     datasets = {
         x : HCDDataset(
-            root=root_path,
+            root=train_data_path,
             in_df=data_df[x],
             transform=data_transform[x],
         )
@@ -42,6 +44,47 @@ def load_data(df,data_transform):
     return dataloaders, datasets_sizes
 
 
+def load_test_data(root,data_transforms):
+    csv_path = os.path.join(root,'sample_submission.csv')
+    df = pd.read_csv(csv_path)
+
+    dataset = HCDDataset(
+        root=test_data_path,
+        in_df=df,
+        transform=data_transforms['test'],
+        mode='test'
+    )
+
+    dataloader = DataLoader(
+        dataset=dataset,
+        batch_size=128,
+        num_workers=4
+    )
+
+    return dataloader
+
+
+def tta_load_test_data(root, data_transforms):
+    csv_path = os.path.join(root,'sample_submission.csv')
+    df = pd.read_csv(csv_path)
+
+    dataset = HCDDataset(
+        root=test_data_path,
+        in_df=df,
+        transform=data_transforms['test'],
+        mode='test'
+    )
+
+    dataloader = DataLoader(
+        dataset=dataset,
+        batch_size=128,
+        shuffle=True,
+        num_workers=4,
+    )
+
+    return dataloader
+
+
 def load_stack_data(data_transform):
 
     # train_df, stack_df = train_test_split(df,
@@ -59,9 +102,10 @@ def load_stack_data(data_transform):
     stack_df = pd.read_csv(stack_csv_path)
 
     stackdataset = HCDDataset(
-        root=root_path,
+        root=train_data_path,
         in_df=stack_df,
-        transform=data_transform['train'],
+        transform=data_transform['test'],
+        mode='test'
     )
 
     stackdataloader = DataLoader(
@@ -81,7 +125,7 @@ def load_stack_data(data_transform):
 
     datasets = {
         x : HCDDataset(
-            root=root_path,
+            root=train_data_path,
             in_df=data_df[x],
             transform=data_transform[x],
         )
