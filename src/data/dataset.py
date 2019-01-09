@@ -16,12 +16,12 @@ class HCDDataset(Dataset):
 
     def __getitem__(self,item):
         image_id = self.image_ids[item]
-        if self.mode == 'train':
-            train_path = os.path.join(self.root,'train')
-            image_path = os.path.join(train_path,image_id) + '.tif'
-        if self.mode == 'test':
-            test_path = os.path.join(self.root,'test')
-            image_path = os.path.join(test_path,image_id) + '.tif'
+        # if self.mode == 'train':
+        #     train_path = os.path.join(self.root,'train')
+        #     image_path = os.path.join(train_path,image_id) + '.tif'
+        # if self.mode == 'test':
+        #     test_path = os.path.join(self.root,'test')
+        image_path = os.path.join(self.root,image_id) + '.tif'
 
         # image = np.asarray(Image.open(image_path))
         image = Image.open(image_path)
