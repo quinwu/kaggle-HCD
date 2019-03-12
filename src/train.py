@@ -4,6 +4,13 @@ import torch
 import numpy as np
 from tqdm import tqdm
 
+import torch.nn.functional as F
+
+
+def semi_supervised_train():
+    pass
+
+
 def train_model(model, device, dataloaders,
                 criterion, optimizer, scheduler, num_epoches=10):
     since = time.time()
@@ -48,13 +55,11 @@ def train_model(model, device, dataloaders,
                     outputs = model(inputs)
 
                     _, preds = torch.max(outputs, 1)
-
                     loss = criterion(outputs, labels)
 
                     if phase == 'train':
                         loss.backward()
                         optimizer.step()
-
                 losses.append(loss.item())
 
                 evalutions['TP'] += torch.sum((preds == 1) & (labels.data == 1)).cpu().item()
@@ -91,3 +96,6 @@ def train_model(model, device, dataloaders,
     # model.load_state_dict(best_model_wts)
 
     return model
+
+
+
