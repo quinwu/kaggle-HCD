@@ -30,9 +30,9 @@ class NormalizeInverse(transforms.Normalize):
         return super().__call__(tensor.clone())
 
 def TensorToPILs(inputs):
-    # unNorm=NormalizeInverse(mean=mean, std=std)
-    # imgs = [F.to_pil_image(unNorm(inputs[i])) for i in range(inputs.shape[0])]
-    imgs = [F.to_pil_image(inputs[i]) for i in range(inputs.shape[0])]
+    unNorm=NormalizeInverse(mean=mean, std=std)
+    imgs = [F.to_pil_image(unNorm(inputs[i])) for i in range(inputs.shape[0])]
+    # imgs = [F.to_pil_image(inputs[i]) for i in range(inputs.shape[0])]
     return imgs
 
 def PILsToTensor(imgs):
