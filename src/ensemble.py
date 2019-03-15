@@ -78,8 +78,8 @@ def max_ensemble(root, ensemble_path):
 
 
 if __name__ == '__main__':
-    ensemble_path = '/home/kwu/Project/kaggle/HCD/k_fold_csv/resnet50/avg_ensemble.csv'
-    root_path = '/home/kwu/Project/kaggle/HCD/k_fold_csv/resnet50'
+    ensemble_path = '/home/kwu/Project/kaggle/HCD/ensemble/avg.csv'
+    root_path = '/home/kwu/Project/kaggle/HCD/ensemble'
     average_ensemble(root_path,ensemble_path)
     # hard_voting_ensemble(root_path,ensemble_path)
     # max_ensemble(root_path, ensemble_path)

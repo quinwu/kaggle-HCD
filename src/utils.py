@@ -39,7 +39,7 @@ def load_data(df,data_transform):
     data_df = {}
     data_df['train'], data_df['val'] = train_test_split(
         df,
-        test_size=0.05,
+        test_size=0.15,
         random_state=42,
         shuffle=True,
     )
@@ -63,9 +63,7 @@ def load_data(df,data_transform):
         for x in ['train', 'val']
     }
 
-    datasets_sizes = {x : len(datasets[x]) for x in ['train', 'val']}
-
-    return dataloaders, datasets_sizes
+    return dataloaders
 
 
 def load_test_data(root,data_transforms):
@@ -239,8 +237,3 @@ def split_cnn_stack(scale):
 
     train_df.to_csv(train_csv_path, index=False)
     stack_df.to_csv(stack_csv_path, index=False)
-
-
-# #
-# if __name__ == '__main__':
-#     split_cnn_stack(0.25)
