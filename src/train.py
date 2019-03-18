@@ -3,7 +3,7 @@ import time
 import torch
 import numpy as np
 from tqdm import tqdm
-
+from sklearn.metrics import roc_auc_score
 import torch.nn.functional as F
 
 
@@ -112,11 +112,18 @@ def train_model(model, device, dataloaders,
     # best_measure['acc'] = 0.0
 
     for epoch in range(num_epoches):
+
         epoch_acc = {}
+        y_true = {}
+        y_label = {}
         # epoch_sensitivity = {}
         # epoch_specificity = {}
 
         for phase in ['train', 'val']:
+
+            y_true[phase] = []
+            y_label[phase] = []
+
             evalutions = {}
             evalutions['TP'] = 0
             evalutions['TN'] = 0
@@ -138,15 +145,20 @@ def train_model(model, device, dataloaders,
 
                 inputs, labels = data
 
+                y_true[phase] += labels.tolist()
+
                 inputs = inputs.to(device)
                 labels = labels.to(device)
+
 
                 optimizer.zero_grad()
 
                 with torch.set_grad_enabled(phase == 'train'):
                     outputs = model(inputs)
-
                     _, preds = torch.max(outputs, 1)
+                    outputs = F.softmax(outputs, 1)
+                    scores = outputs[:, 1].tolist()
+                    y_label[phase] += scores
                     loss = criterion(outputs, labels)
 
                     if phase == 'train':
@@ -174,7 +186,10 @@ def train_model(model, device, dataloaders,
             #     best_measure['specificity'] = epoch_specificity['val']
                 # best_model_wts = copy.deepcopy(model.state_dict())
 
-        print('train ACC: {:.4f}, val ACC： {:.4f}'.format(epoch_acc['train'], epoch_acc['val']))
+        train_auc = roc_auc_score(y_true['train'], y_label['train'])
+        val_auc = roc_auc_score(y_true['val'], y_label['val'])
+
+        print('train ACC: {:.4f}, train AUC_score: {:.4f}, val ACC： {:.4f}, val AUC_score: {:.4f}'.format(epoch_acc['train'],train_auc, epoch_acc['val'],val_auc))
         # print('train sensitivity: {:.4f}, val sensitivity: {:.4f}'.format(epoch_sensitivity['train'], epoch_sensitivity['val']))
         # print('train specificity: {:.4f}, val specificity: {:.4f}'.format(epoch_specificity['train'], epoch_specificity['val']))
 
